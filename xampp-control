@@ -1,0 +1,19 @@
+#!/bin/bash
+XAMPP='/opt/lampp/lampp'
+
+while true ; do
+EXECUTE=`yad --width=500 --height=300 --title="XAMPP Control Panel" --icon="/usr/share/pixmaps/xampp-logo-new.gif" --image="/usr/share/pixmaps/xampp-logo-new.gif" --text='Select an action from the list:' --list \
+--print-all  --column="Command" \
+'start' stop restart reload backup \
+enablessl disablessl startapache stopapache restartapache reloadapache \
+startmysql stopmysql restartmysql reloadmysql \
+startftp stopftp restartftp reloadftp`
+
+if [ $? != 0 ] ; then
+	exit 0
+else
+	sudo "$XAMPP" `echo $EXECUTE | tr -d '|'`
+fi
+done
+
+exit $?
